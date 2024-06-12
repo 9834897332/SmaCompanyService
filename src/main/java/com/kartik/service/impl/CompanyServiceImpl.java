@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kartik.entity.Company;
+import com.kartik.exception.CompanyNotFoundException;
 import com.kartik.repo.CompanyRepository;
 import com.kartik.service.ICompanyService;
 
@@ -32,7 +33,7 @@ public class CompanyServiceImpl implements ICompanyService {
     public Company getOneCompany(Long id) {
        Optional<Company> opt = repo.findById(id);
        if(opt.isEmpty()) {
-    	   return null; //TODO: need to throw exception
+    	   throw new CompanyNotFoundException("Given '"+id+"'Not exist");
        }else {
     	   return opt.get();
        }
